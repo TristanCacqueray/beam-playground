@@ -11,6 +11,7 @@ defmodule Change.Cache do
 
   @impl GenServer
   def init(_) do
+    Change.Database.start()
     {:ok, %{}}
   end
 
@@ -21,7 +22,7 @@ defmodule Change.Cache do
         {:reply, change_server, change_servers}
 
       :error ->
-        {:ok, new_server} = GenServer.start(Change.Server, nil)
+        {:ok, new_server} = GenServer.start(Change.Server, change_name)
 
         {
           :reply,

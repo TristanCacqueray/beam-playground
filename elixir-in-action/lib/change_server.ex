@@ -2,8 +2,8 @@ defmodule Change.Server do
   use GenServer
 
   @impl true
-  def init(_) do
-    {:ok, Change.new()}
+  def init(name) do
+    {:ok, {name, Change.Database.get(name) || Change.new()}}
   end
 
   def add_event(change_server, new_event) do
@@ -15,12 +15,14 @@ defmodule Change.Server do
   end
 
   @impl true
-  def handle_cast({:add_event, new_event}, change) do
-    {:noreply, Change.add_event(change, new_event)}
+  def handle_cast({:add_event, new_event}, {name, change}) do
+    new_change = Change.add_event(change, new_event)
+    Change.Database.store(name, new_change)
+    {:noreply, {name, new_change}}
   end
 
-  def handle_call({:events}, _from, change) do
-    {:reply, Change.events(change), change}
+  def handle_call({:events}, _from, {name, change}) do
+    {:reply, Change.events(change), {name, change}}
   end
 end
 
