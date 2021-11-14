@@ -1,43 +1,73 @@
-defmodule ChangeServer do
-  # Client side function
-  def start do
-    spawn(fn -> loop(Change.new()) end)
+defmodule ServerProcess do
+  def start(callback_module) do
+    spawn(fn ->
+      initial_state = callback_module.init
+      loop(callback_module, initial_state)
+    end)
   end
 
-  def add_event(change_server, new_event) do
-    send(change_server, {:add_event, new_event})
-  end
-
-  def get_events(change_server) do
-    send(change_server, {:events, self()})
-
+  defp loop(callback_module, current_state) do
     receive do
-      {:events, events} -> events
-    after
-      5000 -> {:error, :timeout}
+      {:call, request, caller} ->
+        {response, new_state} =
+          callback_module.handle_call(
+            request,
+            current_state
+          )
+
+        send(caller, {:response, response})
+        loop(callback_module, new_state)
+
+      {:cast, request} ->
+        new_state =
+          callback_module.handle_cast(
+            request,
+            current_state
+          )
+
+        loop(callback_module, new_state)
     end
   end
 
-  # Server implementation
-  defp loop(change) do
-    new_change =
-      receive do
-        message -> process_message(change, message)
-      end
+  def call(server_pid, request) do
+    send(server_pid, {:call, request, self()})
 
-    loop(new_change)
+    receive do
+      {:response, response} ->
+        response
+    end
   end
 
-  defp process_message(change, {:add_event, new_event}) do
+  def cast(server_pid, request) do
+    send(server_pid, {:cast, request})
+  end
+end
+
+defmodule ChangeServer do
+  # Client side function
+  def start do
+    ServerProcess.start(__MODULE__)
+  end
+
+  def init do
+    Change.new()
+  end
+
+  def add_event(change_server, new_event) do
+    ServerProcess.cast(change_server, {:add_event, new_event})
+  end
+
+  def get_events(change_server) do
+    ServerProcess.call(change_server, {:events})
+  end
+
+  def handle_cast({:add_event, new_event}, change) do
     Change.add_event(change, new_event)
   end
 
-  defp process_message(change, {:events, caller}) do
-    send(caller, {:events, Change.events(change)})
-    change
+  def handle_call({:events}, change) do
+    {Change.events(change), change}
   end
-
-  defp process_message(change, _), do: change
 end
 
 # Data structure
