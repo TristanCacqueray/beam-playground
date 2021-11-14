@@ -1,72 +1,26 @@
-defmodule ServerProcess do
-  def start(callback_module) do
-    spawn(fn ->
-      initial_state = callback_module.init
-      loop(callback_module, initial_state)
-    end)
-  end
-
-  defp loop(callback_module, current_state) do
-    receive do
-      {:call, request, caller} ->
-        {response, new_state} =
-          callback_module.handle_call(
-            request,
-            current_state
-          )
-
-        send(caller, {:response, response})
-        loop(callback_module, new_state)
-
-      {:cast, request} ->
-        new_state =
-          callback_module.handle_cast(
-            request,
-            current_state
-          )
-
-        loop(callback_module, new_state)
-    end
-  end
-
-  def call(server_pid, request) do
-    send(server_pid, {:call, request, self()})
-
-    receive do
-      {:response, response} ->
-        response
-    end
-  end
-
-  def cast(server_pid, request) do
-    send(server_pid, {:cast, request})
-  end
-end
-
 defmodule ChangeServer do
-  # Client side function
-  def start do
-    ServerProcess.start(__MODULE__)
-  end
+  use GenServer
 
-  def init do
-    Change.new()
+  @impl true
+  def init(_) do
+    {:ok, Change.new()}
   end
 
   def add_event(change_server, new_event) do
-    ServerProcess.cast(change_server, {:add_event, new_event})
+    GenServer.cast(change_server, {:add_event, new_event})
   end
 
   def get_events(change_server) do
-    ServerProcess.call(change_server, {:events})
+    GenServer.call(change_server, {:events})
   end
 
+  @impl true
   def handle_cast({:add_event, new_event}, change) do
-    Change.add_event(change, new_event)
+    {:noreply, Change.add_event(change, new_event)}
   end
 
-  def handle_call({:events}, change) do
-    {Change.events(change), change}
+  def handle_call({:events}, _from, change) do
+    {:reply, Change.events(change), change}
   end
 end
 
