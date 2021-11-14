@@ -1,4 +1,4 @@
-defmodule ChangeServer do
+defmodule Change.Server do
   use GenServer
 
   @impl true
@@ -44,6 +44,7 @@ defmodule Change do
 
   def events(change) do
     change.events
+    |> Enum.map(fn {_, entry} -> entry end)
   end
 
   def update_event(change, %{} = new_event) do
