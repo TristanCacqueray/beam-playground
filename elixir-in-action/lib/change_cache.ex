@@ -1,12 +1,13 @@
 defmodule Change.Cache do
   use GenServer
 
-  def start do
-    GenServer.start(__MODULE__, nil)
+  def start_link(_) do
+    IO.puts("Starting to-do cache.")
+    GenServer.start_link(__MODULE__, nil, name: __MODULE__)
   end
 
-  def server_process(cache_pid, change_name) do
-    GenServer.call(cache_pid, {:server_process, change_name})
+  def server_process(change_name) do
+    GenServer.call(__MODULE__, {:server_process, change_name})
   end
 
   @impl GenServer

@@ -2,9 +2,9 @@ defmodule ChangeServerTest do
   use ExUnit.Case, async: true
 
   test "add_events" do
-    {:ok, cache} = Change.Cache.start()
+    Change.System.start_link()
 
-    change_pid = Change.Cache.server_process(cache, %{pr: 1})
+    change_pid = Change.Cache.server_process(%{pr: 1})
     assert([] == Change.Server.get_events(change_pid))
 
     Change.Server.add_event(change_pid, %{comment: "hello"})
