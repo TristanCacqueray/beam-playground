@@ -1,6 +1,10 @@
 defmodule Change.Server do
   use GenServer
 
+  def start_link(name) do
+    GenServer.start_link(__MODULE__, name)
+  end
+
   @impl true
   def init(name) do
     {:ok, {name, Change.Database.get(name) || Change.new()}}

@@ -1,8 +1,8 @@
 defmodule Change.DatabaseWorker do
   use GenServer
 
-  def start(db_folder) do
-    GenServer.start(__MODULE__, db_folder)
+  def start_link(db_folder) do
+    GenServer.start_link(__MODULE__, db_folder)
   end
 
   def store(worker_pid, key, data) do
