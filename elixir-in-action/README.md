@@ -13,6 +13,10 @@ $ iex -S mix
 
 ```elixir
 > {:ok, changes} = Change.System.start_link()
+Starting database worker 1
+Starting database worker 2
+Starting database worker 3
+Starting to-do cache.
 {:ok, #PID<0.212.0>}
 > s = Change.Cache.server_process(%{pr: 42})
 #PID<0.214.0>
@@ -27,6 +31,11 @@ true
 #PID<0.155.0>
 > Change.Server.get_events(s)
 [%{date: ~U[2021-11-14 23:34:06.496921Z], event: "recheck", id: 1}]
+
+> GenServer.stop(Change.ProcessRegistry.via_tuple({Change.DatabaseWorker, 1}))
+:ok
+Starting database worker 1
+> IO.puts("Worker automatically restart")
 ```
 
 # Bench 100k changes
