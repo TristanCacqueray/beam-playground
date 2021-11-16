@@ -60,3 +60,22 @@ https://hexdocs.pm/elixir/Task.html#async_stream/2
 
 ## 7.1 Working with the mix project
 https://hexdocs.pm/mix
+
+### 7.2.2 Writing tests
+https://hexdocs.pm/ex_unit
+https://hexdocs.pm/mix/Mix.Tasks.Test.html
+
+### 8.1.2 Handling errors
+https://hexdocs.pm/elixir/Kernel.html#defexception/1
+https://hexdocs.pm/elixir/Kernel.SpecialForms.html#try/1
+https://elixir-lang.org/getting-started/try-catch-and-rescue.html
+
+## 8.3 Supervisors
+https://hexdocs.pm/elixir/Supervisor.html
+https://hexdocs.pm/elixir/Supervisor.html#module-child-specification
+https://hexdocs.pm/elixir/GenServer.html#module-use-genserver-and-callbacks
+
+### 9.1.2 Rich process discovery
+https://hexdocs.pm/elixir/Registry.html
+## 9.2 Starting processes dynamically
+https://hexdocs.pm/elixir/DynamicSupervisor.html

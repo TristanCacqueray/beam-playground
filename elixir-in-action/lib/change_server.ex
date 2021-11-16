@@ -1,8 +1,12 @@
 defmodule Change.Server do
-  use GenServer
+  use GenServer, restart: :temporary
 
   def start_link(name) do
-    GenServer.start_link(__MODULE__, name)
+    GenServer.start_link(__MODULE__, name, name: via_tuple(name))
+  end
+
+  defp via_tuple(name) do
+    Change.ProcessRegistry.via_tuple({__MODULE__, name})
   end
 
   @impl true

@@ -41,7 +41,7 @@ Starting database worker 1
 # Bench 100k changes
 
 ```elixir
-> {:ok, cache} = Change.Cache.start_link(nil)
+> {:ok, cache} = Change.Cache.start_link()
 {:ok, #PID<0.138.0>}
 > :timer.tc(fn -> Enum.each(1..100_000, fn index -> Change.Cache.server_process(%{pr: index}) end) end)
 {1924243, :ok}
