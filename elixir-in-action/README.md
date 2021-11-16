@@ -51,8 +51,35 @@ Elapsed 1.924243 sec
 100061
 ```
 
+Run load test with: `mix load`
+
+# [System](https://hexdocs.pm/elixir/System.html)
+
+```elixir
+# Quit
+> System.stop
+```
+
 # REPL
 
-* Browse a module: `exports ChangeServer`
-* Reload a module: `r ChangeServer`
+* Show info: `i Enum`
+* Browse a module: `exports Enum`
+* Show help: `h Enum.sum`
+
+* Compile a module: `c "./lib/change_server.ex"`
+
+* Reload a module: `r Change.Server`
 * Reload all modules: `recompile`
+
+* Preserve history: `alias iex='iex --erl "-kernel shell_history enabled"'`
+* Auto load module by adding to `.iex.exs`: `alias Change.Cache`
+
+# Debug
+
+* And breakpoint in code with [IEX.pry/0](https://hexdocs.pm/iex/IEx.html#pry/0): `require IEx; IEx.pry()` or set remote breakpoint with [`IEx.break!/4`](https://hexdocs.pm/iex/IEx.html#break!/4)
+* Start the test with debugger: `iex -S mix test --trace`
+
+# Remote
+
+* Start named session: `iex --sname local`
+* Attach to a named session: `iex --sname remote --remsh local@localhost`

@@ -38,3 +38,13 @@ defmodule LoadTest do
     IO.puts("#{inspect(interval)}: average get #{time / @interval_size} μs\n")
   end
 end
+
+defmodule Mix.Tasks.Load do
+  @moduledoc "The load mix task: `mix help load`"
+  use Mix.Task
+
+  @shortdoc "Run the LoadTest."
+  def run(_) do
+    LoadTest.run()
+  end
+end
