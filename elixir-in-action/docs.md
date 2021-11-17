@@ -79,3 +79,8 @@ https://hexdocs.pm/elixir/GenServer.html#module-use-genserver-and-callbacks
 https://hexdocs.pm/elixir/Registry.html
 ## 9.2 Starting processes dynamically
 https://hexdocs.pm/elixir/DynamicSupervisor.html
+
+### 10.1.1 Awaited tasks
+https://hexdocs.pm/elixir/Task.html
+### 10.1.2 Non-awaited tasks
+https://hexdocs.pm/quantum
