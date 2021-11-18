@@ -60,6 +60,11 @@ Run load test with: `mix load`
 > System.stop
 ```
 
+# Process
+
+* Check a process is alive: `Process.alive?(pid)`
+* Kill a process: `Process.exit(pid, :kill)`
+
 # REPL
 
 * Show info: `i Enum`
