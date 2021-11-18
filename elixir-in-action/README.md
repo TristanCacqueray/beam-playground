@@ -53,6 +53,22 @@ Elapsed 1.924243 sec
 
 Run load test with: `mix load`
 
+# Bench 20 millions operations
+
+```
+$ mix run -e "Bench.run(KeyValue)"
+   510_972 operations/sec
+
+$ mix run -e "Bench.run(KeyValueEts)"
+ 2_815_343 operations/sec
+
+$ mix run -e "Bench.run(KeyValue, concurrency: 1_000)"
+   525_927 operations/sec
+
+$ mix run -e "Bench.run(KeyValueEts, concurrency: 1_000)"
+16_639_738 operations/sec
+```
+
 # [System](https://hexdocs.pm/elixir/System.html)
 
 ```elixir
