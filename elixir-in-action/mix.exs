@@ -19,6 +19,8 @@ defmodule EIA.MixProject do
   end
 
   defp deps do
-    []
+    [
+      {:poolboy, "~> 1.5"}
+    ]
   end
 end

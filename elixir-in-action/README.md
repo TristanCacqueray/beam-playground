@@ -92,6 +92,12 @@ $ mix run -e "Bench.run(KeyValueEts, concurrency: 1_000)"
 > System.stop
 ```
 
+System observer:
+
+```elixir
+> :observer.start
+```
+
 # Process
 
 * Check a process is alive: `Process.alive?(pid)`

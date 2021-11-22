@@ -1,1 +1,3 @@
 /persist/
+/deps/
+/mix.lock
