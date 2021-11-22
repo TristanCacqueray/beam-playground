@@ -2,8 +2,6 @@ defmodule ChangeServerTest do
   use ExUnit.Case, async: true
 
   test "add_events" do
-    Change.System.start_link()
-
     change_pid = Change.Cache.server_process(%{pr: 1})
     assert([] == Change.Server.get_events(change_pid))
 

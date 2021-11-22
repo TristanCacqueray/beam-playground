@@ -69,6 +69,22 @@ $ mix run -e "Bench.run(KeyValueEts, concurrency: 1_000)"
 16_639_738 operations/sec
 ```
 
+# [Application](https://hexdocs.pm/elixir/1.12/Application.html)
+
+```elixir
+> Application.started_applications()
+[
+  {:eia, 'eia', '0.1.0'},
+  {:logger, 'logger', '1.12.1'},
+  {:mix, 'mix', '1.12.1'},
+  {:iex, 'iex', '1.12.1'},
+  {:elixir, 'elixir', '1.12.1'},
+  {:compiler, 'ERTS  CXC 138 10', '8.0.1'},
+  {:stdlib, 'ERTS  CXC 138 10', '3.15.1'},
+  {:kernel, 'ERTS  CXC 138 10', '8.0.1'}
+]
+```
+
 # [System](https://hexdocs.pm/elixir/System.html)
 
 ```elixir
