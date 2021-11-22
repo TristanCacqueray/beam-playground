@@ -84,3 +84,6 @@ https://hexdocs.pm/elixir/DynamicSupervisor.html
 https://hexdocs.pm/elixir/Task.html
 ### 10.1.2 Non-awaited tasks
 https://hexdocs.pm/quantum
+### 10.3.3 Other ETS operations
+https://erlang.org/doc/man/ets.html#select-2
+https://hexdocs.pm/ex2ms
