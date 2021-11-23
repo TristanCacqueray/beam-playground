@@ -20,7 +20,8 @@ defmodule EIA.MixProject do
 
   defp deps do
     [
-      {:poolboy, "~> 1.5"}
+      {:poolboy, "~> 1.5"},
+      {:plug_cowboy, "~> 2.0"}
     ]
   end
 end

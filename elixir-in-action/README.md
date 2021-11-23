@@ -69,6 +69,25 @@ $ mix run -e "Bench.run(KeyValueEts, concurrency: 1_000)"
 16_639_738 operations/sec
 ```
 
+# Bench http cowboy
+
+```
+$ wrk -t4 -c20 -d30s --latency -s wrk.lua http://localhost:5454
+Running 30s test @ http://localhost:5454
+  4 threads and 20 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.79ms    2.54ms  76.58ms   96.72%
+    Req/Sec     3.22k     0.91k    5.96k    72.17%
+  Latency Distribution
+     50%    1.42ms
+     75%    2.06ms
+     90%    2.85ms
+     99%    8.39ms
+  384108 requests in 30.05s, 454.98MB read
+Requests/sec:  12783.82
+Transfer/sec:     15.14MB
+```
+
 # [Application](https://hexdocs.pm/elixir/1.12/Application.html)
 
 ```elixir

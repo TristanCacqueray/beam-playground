@@ -5,7 +5,8 @@ defmodule Change.System do
         Change.Metrics,
         Change.ProcessRegistry,
         Change.Database,
-        Change.Cache
+        Change.Cache,
+        Change.Web
       ],
       strategy: :one_for_one
     )
