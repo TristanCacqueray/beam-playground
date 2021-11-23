@@ -1,3 +1,5 @@
-File.rm_rf!("./persist")
-File.mkdir_p!("./persist")
+db_settings = Application.fetch_env!(:eia, :database)
+db_folder = Keyword.fetch!(db_settings, :folder)
+File.rm_rf!(db_folder)
+File.mkdir_p!(db_folder)
 ExUnit.start()

@@ -1,6 +1,7 @@
 defmodule Change.Database do
-  @pool_size 3
-  @db_folder "./persist"
+  @db_settings Application.fetch_env!(:eia, :database)
+  @pool_size Keyword.fetch!(@db_settings, :pool_size)
+  @db_folder Keyword.fetch!(@db_settings, :folder)
 
   def child_spec(_) do
     File.mkdir_p!(@db_folder)
